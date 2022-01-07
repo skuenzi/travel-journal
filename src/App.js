@@ -1,5 +1,6 @@
 import Header from './Components/Header'
 import Card from './Components/Card'
+import NewEntryForm from './Components/NewEntryForm'
 import data from './travelData.js'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <div className="container">
       <Header />
       {cards}
+      <NewEntryForm />
     </div>
   );
 }
