@@ -42,6 +42,7 @@ function NewEntryForm () {
             </textarea>
 
             <button onClick={handleClick} className='img-upload-btn'>upload photo</button>
+            {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}
             <input type="file" style={{display: 'none'}} ref={hiddenFileInput}/>
             <button type='submit' className='submit-btn'>add entry</button>
 
