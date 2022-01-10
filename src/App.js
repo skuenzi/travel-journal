@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-      {cards}
+      {/* <Header />
+      {cards} */}
       <NewEntryForm />
     </div>
   );

@@ -94,3 +94,51 @@ header {
 .card-description {
   margin-top: -1em;
 }
+
+
+/* FORM */
+
+.new-entry-form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.title-input, 
+.description-input {
+  padding: 1em 1.5em;
+  font-family: 'Inter', sans-serif;
+  border-radius: 10px;
+}
+.calendar-toggle-btn {
+  padding: 0;
+  border: none;
+  color:#F55A5A;
+  font-size: 20px;
+  padding: .5em;
+  background-color: white;
+}
+
+.img-upload-btn, 
+.submit-btn {
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  background-color:#F55A5A;
+  color: white;
+  padding: .75em 1.5em;
+  border-radius: 40px;
+  margin-top: 1em;
+}
+
+.img-upload-btn:focus, 
+.submit-btn:focus,  
+.img-upload-btn:hover, 
+.submit-btn:hover  {
+  background-color: #918E9B;
+}
+
+.calendar-toggle-btn:hover, 
+.calendar-toggle-btn:focus {
+  color: #918E9B;
+}
