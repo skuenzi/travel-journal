@@ -3,13 +3,30 @@ import Calendar from 'react-select-date'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 
 function NewEntryForm () {
+    const [formData, setFormData] = useState({
+        title: '',
+        startDate: '',
+        endDate:'',
+        description: ''
+    })
     const [showCalendar, setShowCalendar] = useState(false)
+
+    function handleChange(event) {
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
 
     function toggleCalendar () {
         setShowCalendar(!showCalendar)
         // isn't working because component rerenders immediately and the calendar disapears
     }
-    const hiddenFileInput = useRef(null)
+
+
+    const hiddenFileInput = useRef(null) // for img file uploader
     const handleClick = event => {
         hiddenFileInput.current.click()
 
@@ -21,7 +38,9 @@ function NewEntryForm () {
                 name='title' 
                 type='text' 
                 placeholder='where did you go?' 
+                value={formData.title}
                 className='title-input'
+                onChange={handleChange}
             >
             </input>
 
@@ -38,8 +57,10 @@ function NewEntryForm () {
                 name='description' 
                 placeholder='tell us about it' 
                 className='description-input'
-            >
-            </textarea>
+                value={formData.description}
+                onChange={handleChange}
+
+            />
 
             <button onClick={handleClick} className='img-upload-btn'>upload photo</button>
             {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}
