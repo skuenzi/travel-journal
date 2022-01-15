@@ -7,24 +7,26 @@ function NewEntryForm () {
         title: '',
         startDate: '',
         endDate:'',
-        description: ''
+        description: '',
+        showCalendar: false
     })
-    const [showCalendar, setShowCalendar] = useState(false)
 
     function handleChange(event) {
         setFormData(prevFormData => {
+            const {name, type, value} = event.target
             return {
                 ...prevFormData,
-                [event.target.name]: event.target.value
+                [name]: value
             }
         })
     }
 
-    function toggleCalendar () {
-        setShowCalendar(!showCalendar)
-        // isn't working because component rerenders immediately and the calendar disapears
+    const toggleCalendar = () => {
+        setFormData(prevData => ({
+            ...prevData,
+            showCalendar: !prevData.showCalendar
+        }))
     }
-
 
     const hiddenFileInput = useRef(null) // for img file uploader
     const handleClick = event => {
@@ -43,14 +45,18 @@ function NewEntryForm () {
                 onChange={handleChange}
             >
             </input>
-
+            
             <button 
+                className='calendar-toggle-btn' 
                 onClick={toggleCalendar}
-                className='calendar-toggle-btn'
+                type='button'
+                name='showCalendar'
+                style={{color: formData.showCalendar ? '#918E9B' : '#F55A5A'}}
             >
-                <BsFillCalendarEventFill className='calendar-icon'/>
-            </button>
+                <BsFillCalendarEventFill />
+            </button>    
 
+            {formData.showCalendar && <Calendar className='calendar'/> }
             {/* <Calendar className='calendar'/> */}
 
             <textarea 
