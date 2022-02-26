@@ -1,15 +1,17 @@
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import Calendar from 'react-select-date'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
+import {AiOutlineCloseCircle} from 'react-icons/ai'
 
 function NewEntryForm () {
     const [formData, setFormData] = useState({
         title: '',
-        startDate: '',
-        endDate:'',
         description: '',
-        showCalendar: false
+        start: '',
+        end:''
     })
+    const [showCalendar, setShowCalendar] = useState(false)
+    const [rangeDate, setRangeDate] = useState()
 
     function handleChange(event) {
         setFormData(prevFormData => {
@@ -19,13 +21,11 @@ function NewEntryForm () {
                 [name]: value
             }
         })
+        console.log(event)
     }
 
     const toggleCalendar = () => {
-        setFormData(prevData => ({
-            ...prevData,
-            showCalendar: !prevData.showCalendar
-        }))
+        setShowCalendar(prevData => !prevData.showCalendar)
     }
 
     const hiddenFileInput = useRef(null) // for img file uploader
@@ -34,6 +34,13 @@ function NewEntryForm () {
 
     }
 
+
+    // useEffect(() => {
+    //     if (rangeDate) {
+    //     }
+    // }, [rangeDate])
+
+ 
     return (
         <form className='new-entry-form card'>
             <input 
@@ -51,13 +58,28 @@ function NewEntryForm () {
                 onClick={toggleCalendar}
                 type='button'
                 name='showCalendar'
-                style={{color: formData.showCalendar ? '#918E9B' : '#F55A5A'}}
+                style={{color: showCalendar ? '#918E9B' : '#F55A5A'}}
             >
                 <BsFillCalendarEventFill />
             </button>    
 
-            {formData.showCalendar && <Calendar className='calendar'/> }
-            {/* <Calendar className='calendar'/> */}
+            {showCalendar && 
+            <div className='calendar'>
+                <Calendar 
+                    selectDateType='range'
+                    templateClr='blue'
+                    onSelect={(date) => {
+                        setRangeDate(date)
+                        // console.log(rangeDate)
+                    }}
+                /> 
+                <AiOutlineCloseCircle 
+                    className='close-btn' 
+                    onClick={toggleCalendar}
+                />
+            </div>
+            
+            }
 
             <textarea 
                 name='description' 

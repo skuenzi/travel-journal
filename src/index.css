@@ -143,3 +143,19 @@ header {
 .calendar-toggle-btn:focus {
   color: #918E9B;
 }
+
+
+.calendar {
+  position: absolute;
+  z-index: 100;
+  margin-top: 1em;
+  display: flex;
+
+}
+
+.close-btn {
+  margin-left: 1em;
+}
+.close-btn:hover {
+  color: #F55A5A;
+}
