@@ -45,9 +45,9 @@ export default function FileUploader () {
             </button>
 
     return (
-        <div>
+        <div className='file-uploader'>
             <div className='photo-upload-space'>
-                {fileUploaded && <img src={`/images/${selectedFileName}`} style={{height: '200px', width:'150px', objectFit: 'cover'}}/>}
+                {fileUploaded && <img src={`/images/${selectedFileName}`} style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
             </div>
             {btnType}
             {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}
