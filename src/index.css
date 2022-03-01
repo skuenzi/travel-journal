@@ -128,3 +128,10 @@ header {
   border-radius: 40px;
   margin-top: 1em;
 }
+
+.photo-upload-space {
+  border: 1px solid gray;
+  height: 200px;
+  width: 150px;
+  margin: 1em auto;
+}
