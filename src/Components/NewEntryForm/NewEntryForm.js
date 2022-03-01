@@ -4,13 +4,6 @@ import FileUploader from './fileuploader'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 
 export default function NewEntryForm (props) {
-    const hiddenFileInput = useRef(null)
-
-
-    const handleClick = (e) => {
-        hiddenFileInput.current.click()
-    }
-
 
     return (
         <form className='form container'>
@@ -32,6 +25,7 @@ export default function NewEntryForm (props) {
                         >
                         <BsFillCalendarEventFill /> 
                     </button>
+
                     {/* calendar */}
 
                     <textarea

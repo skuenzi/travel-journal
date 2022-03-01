@@ -4,16 +4,20 @@ import axios from 'axios'
 export default function FileUploader () {
     const hiddenFileInput = useRef(null)
     const [selectedFile, setSelectedFile] = useState()
+    const [selectedFilePreview, setSelectedFilePreview] = useState()
     const [fileSelected, setFileSelected] = useState(false)
     const [fileUploaded, setFileUploaded] = useState(false)
     const [selectedFileName, setSelectedFileName] = useState()
 
     const handleChange = (e) => {
+        e.preventDefault()
         setSelectedFile(e.target.files[0])
         setFileSelected(true)
+        setSelectedFilePreview(URL.createObjectURL(e.target.files[0]))
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault()
         const data = new FormData()
         data.append('file', selectedFile)
 
@@ -39,15 +43,19 @@ export default function FileUploader () {
             <button 
                 type='button'
                 onClick={handleClick} 
-                className='img-upload-btn'
+                className={`img-upload-btn ${fileUploaded && 'clicked'}`}
+                disabled={fileUploaded}
             >
                 upload
             </button>
 
+  
+        
+
     return (
         <div className='file-uploader'>
             <div className='photo-upload-space'>
-                {fileUploaded && <img src={`/images/${selectedFileName}`} style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
+                {fileSelected && <img src={fileUploaded ? `/images/${selectedFileName}` : selectedFilePreview}style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
             </div>
             {btnType}
             {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}
