@@ -113,14 +113,6 @@ header {
   border-radius: 10px;
 }
 
-.calendar-toggle-btn {
-  padding: 0;
-  border: none;
-  color:#F55A5A;
-  font-size: 20px;
-  padding: .5em;
-  background-color: white;
-}
 
 .submit-btn,
 .img-upload-btn {
@@ -164,3 +156,9 @@ header {
   flex-direction:column;
 }
 
+.calendar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1.5em 0;
+}

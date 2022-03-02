@@ -1,36 +1,43 @@
 import Header from './Components/Header'
 import Card from './Components/Card'
 import NewEntryForm from './Components/NewEntryForm/NewEntryForm'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import data from './travelData.js'
 
 function App() {
+  const [newEntry, setNewEntry] = useState({
+    title: '',
+    description: '',
+    startDate:'',
+    endDate: '',
+    img: ''
+  })
   const [places, setPlaces] = useState(data)
-
   const [formData, setFormData] = useState({
     title: '',
     description: ''
   })
+  const [dateRange, setDateRange] = useState([null, null])
 
-  const [img, setImg] = useState()
+  const [startDate, endDate] = dateRange
+
 
   const handleChange = (e) => {
+    
+    // for text inputs
+    if(e.target.name === 'description' || e.target.name === 'title') {
+      const {name, type, value} = e.target
       setFormData(prevFormData => {
-        const {name, type, value} = e.target
+        
         return {
             ...prevFormData,
             [name]: value
         }
-          
       })
-      console.log(formData)
+    }
   }
 
-  const handleImgUpload= (upload) => {
-    setImg(upload)
-    console.log(img)
-  }
 
 
   const cards = places.map((item) => <Card key={item.id} {...item}/>)
@@ -42,7 +49,10 @@ function App() {
       <NewEntryForm 
         handleChange={handleChange} 
         formData={formData} 
-        handleImgUpload={handleImgUpload}
+        setDateRange={setDateRange}
+        startDate={startDate}
+        endDate={endDate}
+
       />
     </div>
   );

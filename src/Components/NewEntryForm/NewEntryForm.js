@@ -1,9 +1,12 @@
 import {useState, useRef} from 'react'
 import FileUploader from './fileuploader'
-
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 
 export default function NewEntryForm (props) {
+    const [dateRange, setDateRange] = useState([null, null])
+    const [startDate, endDate] = dateRange
 
     return (
         <form className='form container'>
@@ -19,15 +22,22 @@ export default function NewEntryForm (props) {
                     >
                     </input>
                     
-                    <button 
-                        type='button'
-                        className='calendar-toggle-btn'
-                        >
-                        <BsFillCalendarEventFill /> 
-                    </button>
-
-                    {/* calendar */}
-
+                    <div className='calendar-container'>
+                        <BsFillCalendarEventFill  style={{color: '#F55A5A'}}/>
+                        <DatePicker 
+                            selectsRange={true}
+                            startDate={props.startDate}
+                            endDate={props.endDate}
+                            onChange={(update) => {
+                                props.setDateRange(update);
+                            }}
+                            withPortal
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                        />
+                    </div>
                     <textarea
                         name='description'
                         value={props.formData.description}
