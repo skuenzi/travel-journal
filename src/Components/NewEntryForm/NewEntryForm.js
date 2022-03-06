@@ -5,8 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 
 export default function NewEntryForm (props) {
-    const [dateRange, setDateRange] = useState([null, null])
-    const [startDate, endDate] = dateRange
 
     return (
         <form className='form container'>
@@ -47,7 +45,11 @@ export default function NewEntryForm (props) {
                         />
                     
                 </div>
-                <FileUploader />
+                <FileUploader 
+                    selectedFileName={props.selectedFileName}
+                    setSelectedFileName={props.setSelectedFileName}
+                    
+                />
             </div>
             <button
                 type='submit'

@@ -1,13 +1,12 @@
 import {useRef, useState} from 'react'
 import axios from 'axios'
 
-export default function FileUploader () {
+export default function FileUploader (props) {
     const hiddenFileInput = useRef(null)
     const [selectedFile, setSelectedFile] = useState()
     const [selectedFilePreview, setSelectedFilePreview] = useState()
     const [fileSelected, setFileSelected] = useState(false)
     const [fileUploaded, setFileUploaded] = useState(false)
-    const [selectedFileName, setSelectedFileName] = useState()
 
     const handleChange = (e) => {
         e.preventDefault()
@@ -24,7 +23,7 @@ export default function FileUploader () {
         axios.post('http://localhost:8000/upload', data)
         .then(res => {
             setFileUploaded(true)
-            setSelectedFileName(res.data.filename)
+            props.setSelectedFileName(res.data.filename)
         })
     }
 
@@ -55,7 +54,7 @@ export default function FileUploader () {
     return (
         <div className='file-uploader'>
             <div className='photo-upload-space'>
-                {fileSelected && <img src={fileUploaded ? `/images/${selectedFileName}` : selectedFilePreview}style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
+                {fileSelected && <img src={fileUploaded ? `/images/${props.selectedFileName}` : selectedFilePreview}style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
             </div>
             {btnType}
             {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}

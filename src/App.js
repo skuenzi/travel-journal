@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react'
 import data from './travelData.js'
 
 function App() {
+  const [places, setPlaces] = useState(data)
   const [newEntry, setNewEntry] = useState({
     title: '',
     description: '',
@@ -13,14 +14,13 @@ function App() {
     endDate: '',
     img: ''
   })
-  const [places, setPlaces] = useState(data)
   const [formData, setFormData] = useState({
     title: '',
     description: ''
   })
-  const [dateRange, setDateRange] = useState([null, null])
-
+  const [dateRange, setDateRange] = useState([null, null]) // for date picker
   const [startDate, endDate] = dateRange
+  const [selectedFileName, setSelectedFileName] = useState() // for img uploader
 
 
   const handleChange = (e) => {
@@ -38,6 +38,22 @@ function App() {
     }
   }
 
+  
+
+
+  useEffect(() => {
+    setNewEntry(prevData => {
+      return {
+        ...prevData,
+        title: formData.title,
+        description: formData.description,
+        startDate: startDate ? startDate.toDateString().substr(3) : null,
+        endDate: endDate ? endDate.toDateString().substr(3) : null,
+        img: selectedFileName
+      }
+    })
+  }, [formData, dateRange, selectedFileName])
+
 
 
   const cards = places.map((item) => <Card key={item.id} {...item}/>)
@@ -52,7 +68,8 @@ function App() {
         setDateRange={setDateRange}
         startDate={startDate}
         endDate={endDate}
-
+        selectedFileName={selectedFileName}
+        setSelectedFileName={setSelectedFileName}
       />
     </div>
   );
