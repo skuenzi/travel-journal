@@ -16,7 +16,6 @@ export default function FileUploader (props) {
     }
 
     const handleClick = (e) => {
-        e.preventDefault()
         const data = new FormData()
         data.append('file', selectedFile)
 

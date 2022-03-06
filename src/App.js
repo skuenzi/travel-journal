@@ -2,21 +2,29 @@ import Header from './Components/Header'
 import Card from './Components/Card'
 import NewEntryForm from './Components/NewEntryForm/NewEntryForm'
 import {useEffect, useState} from 'react'
+import {nanoid} from 'nanoid'
 
 import data from './travelData.js'
 
 function App() {
   const [places, setPlaces] = useState(data)
+  const [cards, setCards] = useState()
   const [newEntry, setNewEntry] = useState({
+    id: nanoid(),
     title: '',
-    description: '',
+    location: '',
+    googleMapsUrl:'',
     startDate:'',
     endDate: '',
-    img: ''
+    description: '',
+    imgPath: ''
+    
   })
   const [formData, setFormData] = useState({
     title: '',
-    description: ''
+    description: '',
+    location: '',
+    googleMapsUrl: ''
   })
   const [dateRange, setDateRange] = useState([null, null]) // for date picker
   const [startDate, endDate] = dateRange
@@ -26,7 +34,6 @@ function App() {
   const handleChange = (e) => {
     
     // for text inputs
-    if(e.target.name === 'description' || e.target.name === 'title') {
       const {name, type, value} = e.target
       setFormData(prevFormData => {
         
@@ -35,28 +42,31 @@ function App() {
             [name]: value
         }
       })
-    }
   }
-
-  
-
 
   useEffect(() => {
     setNewEntry(prevData => {
       return {
         ...prevData,
-        title: formData.title,
-        description: formData.description,
+        title: formData.title, 
+        location: formData.location,
+        googleMapsUrl: formData.googleMapsUrl,
         startDate: startDate ? startDate.toDateString().substr(3) : null,
         endDate: endDate ? endDate.toDateString().substr(3) : null,
-        img: selectedFileName
+        description: formData.description,
+        imgPath: `../images/${selectedFileName}`
+       
       }
     })
+    console.log(newEntry)
   }, [formData, dateRange, selectedFileName])
 
+  useEffect(() => {
+    setCards(places.map((item) => <Card key={item.id} {...item}/>))
+    
+  },[places])
 
 
-  const cards = places.map((item) => <Card key={item.id} {...item}/>)
 
   return (
     <div className="container">

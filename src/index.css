@@ -97,19 +97,25 @@ header {
 
 
 .new-entry-form {
+  margin: 1em 0;
   display: flex;
   justify-content: space-around;
+  height: auto;
+  border-bottom: unset;
 }
 
 .col-1 {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
-
 .title-input, 
-.description-input {
+.description-input,
+.location-input,
+.mapsUrl-input {
   padding: 1em 1.5em;
   font-family: 'Inter', sans-serif;
+  border: 2px #918E9B solid;
   border-radius: 10px;
 }
 
@@ -145,10 +151,10 @@ header {
 }
 
 .photo-upload-space {
-  border: 1px solid gray;
+  border: 1px solid #918E9B;
   height: 152px;
   width: 127px;
-  margin: 1em auto .1em;
+  align-self: center;
 }
 
 .form {
@@ -160,5 +166,4 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 1.5em 0;
 }

@@ -8,7 +8,7 @@ export default function NewEntryForm (props) {
 
     return (
         <form className='form container'>
-            <div className='card new-entry-form'>
+            <div className='new-entry-form'>
                 <div className='col-1'>
                     <input
                         name='title'
@@ -17,6 +17,15 @@ export default function NewEntryForm (props) {
                         placeholder='where did you go?'
                         onChange={props.handleChange}
                         className='title-input'
+                    >
+                    </input>
+                    <input
+                        name='location'
+                        type='text'
+                        value={props.formData.location}
+                        placeholder='which is in...'
+                        onChange={props.handleChange}
+                        className='location-input'
                     >
                     </input>
                     
@@ -43,13 +52,23 @@ export default function NewEntryForm (props) {
                         onChange={props.handleChange}
                         className='description-input'
                         />
-                    
                 </div>
-                <FileUploader 
-                    selectedFileName={props.selectedFileName}
-                    setSelectedFileName={props.setSelectedFileName}
-                    
-                />
+                <div className='col-2'>
+                    <FileUploader 
+                        selectedFileName={props.selectedFileName}
+                        setSelectedFileName={props.setSelectedFileName}
+                        
+                    />
+                    <input
+                        name='googleMapsUrl'
+                        type='text'
+                        value={props.formData.googleMapsUrl}
+                        placeholder='paste a map url'
+                        onChange={props.handleChange}
+                        className='mapsUrl-input'
+                    >
+                    </input>
+                </div>
             </div>
             <button
                 type='submit'
