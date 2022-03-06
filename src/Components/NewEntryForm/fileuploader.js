@@ -11,6 +11,7 @@ export default function FileUploader (props) {
     const handleChange = (e) => {
         e.preventDefault()
         setSelectedFile(e.target.files[0])
+        console.log(selectedFile)
         setFileSelected(true)
         setSelectedFilePreview(URL.createObjectURL(e.target.files[0]))
     }

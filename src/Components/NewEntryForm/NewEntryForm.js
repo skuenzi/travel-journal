@@ -70,12 +70,6 @@ export default function NewEntryForm (props) {
                     </input>
                 </div>
             </div>
-            <button
-                type='submit'
-                className='submit-btn'
-            >
-                add entry
-            </button>
         </form>
     )
 }

@@ -1,14 +1,15 @@
+import {useEffect, useState, useContext} from 'react'
+import {Context} from './Context'
 import Header from './Components/Header'
 import Card from './Components/Card'
 import NewEntryForm from './Components/NewEntryForm/NewEntryForm'
-import {useEffect, useState} from 'react'
+
 import {nanoid} from 'nanoid'
 
 import data from './travelData.js'
 
 function App() {
-  const [places, setPlaces] = useState(data)
-  const [cards, setCards] = useState()
+  const {places, addEntry} = useContext(Context)
   const [newEntry, setNewEntry] = useState({
     id: nanoid(),
     title: '',
@@ -20,6 +21,8 @@ function App() {
     imgPath: ''
     
   })
+
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -61,17 +64,12 @@ function App() {
     console.log(newEntry)
   }, [formData, dateRange, selectedFileName])
 
-  useEffect(() => {
-    setCards(places.map((item) => <Card key={item.id} {...item}/>))
-    
-  },[places])
-
 
 
   return (
     <div className="container">
       <Header />
-      {cards}
+      {places.map((item) => <Card key={item.id} {...item}/>)}
       <NewEntryForm 
         handleChange={handleChange} 
         formData={formData} 
@@ -81,6 +79,13 @@ function App() {
         selectedFileName={selectedFileName}
         setSelectedFileName={setSelectedFileName}
       />
+      <button
+          type='button'
+          className='submit-btn'
+          onClick={() => addEntry(newEntry)}
+      >
+          add entry
+      </button>
     </div>
   );
 }
