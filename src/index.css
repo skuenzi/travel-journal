@@ -96,32 +96,32 @@ header {
 }
 
 
-/* FORM */
-
 .new-entry-form {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-around;
+  height: auto;
+  border-bottom: unset;
+}
+
+.col-1 {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  justify-content: space-around;
 }
-
 .title-input, 
-.description-input {
+.description-input,
+.location-input,
+.mapsUrl-input {
   padding: 1em 1.5em;
   font-family: 'Inter', sans-serif;
+  border: 2px #918E9B solid;
   border-radius: 10px;
 }
-.calendar-toggle-btn {
-  padding: 0;
-  border: none;
-  color:#F55A5A;
-  font-size: 20px;
-  padding: .5em;
-  background-color: white;
-}
 
 
-.img-upload-btn, 
-.submit-btn {
+.submit-btn,
+.img-upload-btn {
   border: none;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -129,17 +129,41 @@ header {
   color: white;
   padding: .75em 1.5em;
   border-radius: 40px;
-  margin-top: 1em;
+  margin: 1em auto;
+  cursor: pointer;
 }
 
-.img-upload-btn:focus, 
-.submit-btn:focus,  
-.img-upload-btn:hover, 
-.submit-btn:hover  {
-  background-color: #918E9B;
+.submit-btn:hover,
+.img-upload-btn:hover {
+  background-color: white;
+  color: #F55A5A;
 }
 
-.calendar-toggle-btn:hover, 
-.calendar-toggle-btn:focus {
-  color: #918E9B;
+.img-upload-btn.clicked {
+  background-color: gray;
+  cursor: unset;
+  color: white;
+}
+
+.file-uploader {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-upload-space {
+  border: 1px solid #918E9B;
+  height: 152px;
+  width: 127px;
+  align-self: center;
+}
+
+.form {
+  display: flex;
+  flex-direction:column;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
