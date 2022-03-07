@@ -3,49 +3,35 @@ import axios from 'axios'
 
 export default function FileUploader (props) {
     const hiddenFileInput = useRef(null)
-    const [selectedFile, setSelectedFile] = useState()
     const [selectedFilePreview, setSelectedFilePreview] = useState()
     const [fileSelected, setFileSelected] = useState(false)
-    const [fileUploaded, setFileUploaded] = useState(false)
+  const [selectedFile, setSelectedFile] = useState()
+
 
     const handleChange = (e) => {
         e.preventDefault()
         setSelectedFile(e.target.files[0])
         setFileSelected(true)
         setSelectedFilePreview(URL.createObjectURL(e.target.files[0]))
-    }
-
-    const handleClick = (e) => {
+        
         const data = new FormData()
         data.append('file', selectedFile)
 
         axios.post('http://localhost:8000/upload', data)
-        .then(res => {
-            setFileUploaded(true)
-            props.setSelectedFileName(res.data.filename)
-        })
     }
-
 
     const redirectClick = (e) => { // redirecting from styled button to upload input
         hiddenFileInput.current.click()
     }
 
-    const btnType = !fileSelected ? <button 
+    const btnType =  <button 
                 type='button'
                 onClick={redirectClick} 
                 className='img-upload-btn'
+                disabled={fileSelected}
             >
                 select photo
-            </button> :
-            <button 
-                type='button'
-                onClick={handleClick} 
-                className={`img-upload-btn ${fileUploaded && 'clicked'}`}
-                disabled={fileUploaded}
-            >
-                upload
-            </button>
+            </button> 
 
   
         
@@ -53,7 +39,7 @@ export default function FileUploader (props) {
     return (
         <div className='file-uploader'>
             <div className='photo-upload-space'>
-                {fileSelected && <img src={fileUploaded ? `/images/${props.selectedFileName}` : selectedFilePreview}style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
+                {fileSelected && <img src={selectedFilePreview}style={{height: '150px', width:'125px', objectFit: 'cover'}}/>}
             </div>
             {btnType}
             {/* https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8 */}

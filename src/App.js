@@ -1,14 +1,15 @@
+import {useEffect, useState, useContext} from 'react'
+// import {Context} from './Context'
 import Header from './Components/Header'
 import Card from './Components/Card'
 import NewEntryForm from './Components/NewEntryForm/NewEntryForm'
-import {useEffect, useState} from 'react'
 import {nanoid} from 'nanoid'
+import axios from 'axios'
 
 import data from './travelData.js'
 
 function App() {
-  const [places, setPlaces] = useState(data)
-  const [cards, setCards] = useState()
+  const [places, setPlaces] = useState(JSON.parse(localStorage.getItem('places')) || [])
   const [newEntry, setNewEntry] = useState({
     id: nanoid(),
     title: '',
@@ -17,7 +18,7 @@ function App() {
     startDate:'',
     endDate: '',
     description: '',
-    imgPath: ''
+    imagePath: ''
     
   })
   const [formData, setFormData] = useState({
@@ -28,13 +29,13 @@ function App() {
   })
   const [dateRange, setDateRange] = useState([null, null]) // for date picker
   const [startDate, endDate] = dateRange
-  const [selectedFileName, setSelectedFileName] = useState() // for img uploader
+  
 
 
   const handleChange = (e) => {
     
     // for text inputs
-      const {name, type, value} = e.target
+      const {name, value} = e.target
       setFormData(prevFormData => {
         
         return {
@@ -43,6 +44,9 @@ function App() {
         }
       })
   }
+
+  const [selectedFileName, setSelectedFileName] = useState() // for img uploader
+
 
   useEffect(() => {
     setNewEntry(prevData => {
@@ -54,33 +58,47 @@ function App() {
         startDate: startDate ? startDate.toDateString().substr(3) : null,
         endDate: endDate ? endDate.toDateString().substr(3) : null,
         description: formData.description,
-        imgPath: `../images/${selectedFileName}`
+        imagePath: `public/images/${selectedFileName}`
        
       }
     })
     console.log(newEntry)
   }, [formData, dateRange, selectedFileName])
 
+  useEffect(() => {setPlaces(data)},[])
+
   useEffect(() => {
-    setCards(places.map((item) => <Card key={item.id} {...item}/>))
-    
-  },[places])
+    localStorage.setItem('places', JSON.stringify(places))
+  }, [places])
 
 
+ 
+  
+
+  function addEntry (e) {
+    e.preventDefault()
+    setPlaces(prevPlaces => [...prevPlaces, newEntry])
+  }
 
   return (
     <div className="container">
       <Header />
-      {cards}
+      {places.map((item) => <Card key={item.id} {...item}/>)}
       <NewEntryForm 
         handleChange={handleChange} 
         formData={formData} 
         setDateRange={setDateRange}
         startDate={startDate}
         endDate={endDate}
-        selectedFileName={selectedFileName}
         setSelectedFileName={setSelectedFileName}
       />
+      <button
+          type='button'
+          className='submit-btn'
+          onClick={addEntry}
+      >
+          add entry
+      </button>
     </div>
   );
 }

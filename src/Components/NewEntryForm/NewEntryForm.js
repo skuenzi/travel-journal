@@ -55,7 +55,7 @@ export default function NewEntryForm (props) {
                 </div>
                 <div className='col-2'>
                     <FileUploader 
-                        selectedFileName={props.selectedFileName}
+                        setSelectedFile={props.setSelectedFile}
                         setSelectedFileName={props.setSelectedFileName}
                         
                     />
@@ -70,12 +70,6 @@ export default function NewEntryForm (props) {
                     </input>
                 </div>
             </div>
-            <button
-                type='submit'
-                className='submit-btn'
-            >
-                add entry
-            </button>
         </form>
     )
 }
