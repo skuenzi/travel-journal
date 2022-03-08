@@ -45,7 +45,9 @@ function App() {
       })
   }
 
-  const [selectedFileName, setSelectedFileName] = useState() // for img uploader
+  const [selectedFileName, setSelectedFileName] = useState('') // for img uploader
+  const [selectedFile, setSelectedFile] = useState()
+  const [fileSelected, setFileSelected] = useState(false)
 
 
   useEffect(() => {
@@ -58,11 +60,10 @@ function App() {
         startDate: startDate ? startDate.toDateString().substr(3) : null,
         endDate: endDate ? endDate.toDateString().substr(3) : null,
         description: formData.description,
-        imagePath: `public/images/${selectedFileName}`
+        imagePath: `../images/${selectedFileName}`
        
       }
     })
-    console.log(newEntry)
   }, [formData, dateRange, selectedFileName])
 
   useEffect(() => {setPlaces(data)},[])
@@ -76,8 +77,28 @@ function App() {
   
 
   function addEntry (e) {
+    const finishedEntry = newEntry
     e.preventDefault()
-    setPlaces(prevPlaces => [...prevPlaces, newEntry])
+    setPlaces(prevPlaces => [...prevPlaces, finishedEntry])
+    setNewEntry({
+      id: nanoid(),
+      title: '',
+      location: '',
+      googleMapsUrl:'',
+      startDate:'',
+      endDate: '',
+      description: '',
+      imagePath: ''
+    })
+    setFormData({ 
+      title: '',
+      description: '',
+      location: '',
+      googleMapsUrl: ''
+    })
+    setDateRange([null, null])
+    setSelectedFile(null)
+    setFileSelected(false)
   }
 
   return (
@@ -90,7 +111,12 @@ function App() {
         setDateRange={setDateRange}
         startDate={startDate}
         endDate={endDate}
+        setSelectedFile={setSelectedFile}
+        selectedFile={selectedFile}
         setSelectedFileName={setSelectedFileName}
+        selectedFileName={selectedFileName}
+        fileSelected={fileSelected}
+        setFileSelected={setFileSelected}
       />
       <button
           type='button'
