@@ -12,6 +12,10 @@ body {
   margin: 0 auto;
 }
 
+.container .submit-btn {
+  display: flex;
+}
+
 /* HEADER */
 
 header {
@@ -131,6 +135,9 @@ header {
   border-radius: 40px;
   margin: 1em auto;
   cursor: pointer;
+}
+
+.submit-btn {
 }
 
 .submit-btn:hover,

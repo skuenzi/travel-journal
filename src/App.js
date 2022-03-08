@@ -62,6 +62,7 @@ function App() {
        
       }
     })
+    // eslint-disable-next-line
   }, [formData, dateRange, selectedFileName])
 
   useEffect(() => {setPlaces(data)},[])
