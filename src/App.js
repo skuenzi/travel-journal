@@ -1,10 +1,8 @@
-import {useEffect, useState, useContext} from 'react'
-// import {Context} from './Context'
+import {useEffect, useState} from 'react'
 import Header from './Components/Header'
 import Card from './Components/Card'
 import NewEntryForm from './Components/NewEntryForm/NewEntryForm'
 import {nanoid} from 'nanoid'
-import axios from 'axios'
 
 import data from './travelData.js'
 
